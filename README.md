@@ -1,16 +1,85 @@
-# React + Vite
+# VShare Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> A platform for sharing your stories through voice. Record your thoughts, experiences, and tales, and share them with friends.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Voice Recording:** Easily record audio clips directly in the browser.
+- **Story Sharing:** Share your recorded stories with your friends.
+- **Friend System:** Add and manage your friends to control who hears your stories.
+- **Personal Dashboard:** A central place to listen to stories shared by your friends.
+- **User Authentication:** Secure login and registration.
 
-## React Compiler
+## 🚀 Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend:** [React](https://reactjs.org/) with [Vite](https://vitejs.dev/)
+- **Deployment:** AWS S3 & CloudFront with GitHub Actions for CI/CD.
 
-## Expanding the ESLint configuration
+## 📂 Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The project follows a feature-sliced design to keep the codebase organized and scalable.
+
+```
+src/
+├── assets/          # Static files (images, svg, global CSS)
+├── components/      # Global UI components (Button.jsx, Modal.jsx)
+├── config/          # Constants, API keys, and global config
+├── features/        # Business logic organized by feature
+│   ├── auth/
+│   │   ├── api/        # Fetch calls (authApi.js)
+│   │   ├── components/ # Private components (LoginForm.jsx)
+│   │   ├── hooks/      # Feature-specific hooks (useAuth.js)
+│   │   └── index.js    # Public entry point for the feature
+│   └── dashboard/
+├── hooks/           # Shared hooks (useWindowSize.js, useForm.js)
+├── layouts/         # Page wrappers (AuthLayout.jsx, DashboardLayout.jsx)
+├── lib/             # Third-party library setups (axios.js, firebase.js)
+├── routes/          # Route definitions (AppRoutes.jsx)
+├── store/           # Global state (Zustand or Redux slices)
+├── utils/           # Helper functions (formatDate.js)
+├── App.jsx          # Main application component
+└── main.jsx         # React DOM rendering entry point
+```
+
+## 🛠️ Getting Started
+
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+- Node.js (Version 20 or higher, as per `.github/workflows/deploy.yml`)
+- npm
+
+### Installation
+
+1.  **Clone the repository**
+
+    ```sh
+    git clone https://github.com/your-username/vshare-frontend.git
+    cd vshare-frontend
+    ```
+
+2.  **Install dependencies**
+
+    ```sh
+    npm install
+    ```
+
+3.  **Set up environment variables**
+    Create a `.env.local` file in the root of the project and add the necessary environment variables (e.g., API endpoints, service keys).
+
+4.  **Run the development server**
+    ```sh
+    npm run dev
+    ```
+
+## 📦 Build & Deployment
+
+- **To create a production build:**
+
+  ```sh
+  npm run build
+  ```
+
+- **Deployment:**
+  The project is configured for continuous deployment using GitHub Actions. Pushing to the `main` branch will automatically trigger a workflow that builds the project, deploys the static files to an AWS S3 bucket, and invalidates the AWS CloudFront cache.
